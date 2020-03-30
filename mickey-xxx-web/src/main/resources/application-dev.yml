@@ -1,0 +1,24 @@
+mickey:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?useunicode=true&characterencoding=utf-8&allowMultiQueries=true
+    username: root
+    password: 1qazxsw@
+
+spring:
+  redis:
+    mode: single
+    jedis:
+      pool:
+        #最大空闲
+        max-idle: 15
+        min-idle: 8
+        #最大阻塞等待时间（负数表示没有限制）
+        max-wait: 3000ms
+        #最大连接数
+        max-active: 500
+    host: 127.0.0.1
+    port: 6379
+
+logging:
+  level:
+    io.swagger.models.parameters.AbstractSerializableParameter: error

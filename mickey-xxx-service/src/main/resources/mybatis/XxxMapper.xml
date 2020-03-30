@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxx.entity.po.XxxPo">
+  <resultMap id="BaseResultMap" type="com.xxx.entity.po.XxxPo">
+        <id column="xxx_id" property="xxxId"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <sql id="Table_Name">
+    xxx
+  </sql>
+
+  <sql id="Base_Column">
+        xxx_id,
+        name,
+        sex,
+        del_flag,
+        create_time,
+        update_time
+  </sql>
+
+  <sql id="Base_Where">
+    <trim suffixOverrides="AND">
+        <if test="xxxId != null">
+           xxx_id=#{xxxId}
+           AND
+        </if>
+        <if test="name != null">
+           name=#{name}
+           AND
+        </if>
+        <if test="sex != null">
+           sex=#{sex}
+           AND
+        </if>
+        <if test="delFlag != null">
+           del_flag=#{delFlag}
+           AND
+        </if>
+        <if test="createTime != null">
+           create_time <![CDATA[ >= ]]> #{createTime}
+           AND
+        </if>
+        <if test="updateTime != null">
+           update_time <![CDATA[ >= ]]> #{updateTime}
+        </if>
+    </trim>
+  </sql>
+
+  <sql id="Base_Select">
+    select
+    <include refid="Base_Column"/>
+    from
+    <include refid="Table_Name"/>
+    <where>
+      <include refid="Base_Where"/>
+    </where>
+  </sql>
+
+  <!-- 单条插入 -->
+  <insert id="insert" parameterType="com.xxx.entity.po.XxxPo" useGeneratedKeys="true" keyProperty="xxxId">
+    insert into
+    <include refid="Table_Name"/>
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="xxxId != null">
+          xxx_id,
+        </if>
+        <if test="name != null">
+          name,
+        </if>
+        <if test="sex != null">
+          sex,
+        </if>
+        <if test="delFlag != null">
+          del_flag,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="xxxId != null">
+          #{xxxId},
+        </if>
+        <if test="name != null">
+          #{name},
+        </if>
+        <if test="sex != null">
+          #{sex},
+        </if>
+        <if test="delFlag != null">
+          #{delFlag},
+        </if>
+    </trim>
+  </insert>
+
+  <!-- 批量插入 -->
+  <insert id="insertList" parameterType="java.util.List">
+    insert into
+    <include refid="Table_Name"/>
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        xxx_id,
+        name,
+        sex,
+        del_flag,
+    </trim>
+    values
+    <foreach collection="list" item="item" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        #{item.xxxId},
+        #{item.name},
+        #{item.sex},
+        #{item.delFlag},
+      </trim>
+    </foreach>
+  </insert>
+
+  <!-- 根据主键更新 -->
+  <update id="update" parameterType="com.xxx.entity.po.XxxPo">
+    update
+    <include refid="Table_Name"/>
+    <set>
+          <if test="name != null">
+            name=#{name},
+          </if>
+          <if test="sex != null">
+            sex=#{sex},
+          </if>
+          <if test="delFlag != null">
+            del_flag=#{delFlag},
+          </if>
+          <if test="createTime != null">
+            create_time=#{createTime},
+          </if>
+          <if test="updateTime != null">
+            update_time=#{updateTime},
+          </if>
+    </set>
+    where
+        xxx_id=#{xxxId}
+  </update>
+
+  <!-- 根据主键批量更新 -->
+  <update id="updateList" parameterType="java.util.List">
+    <foreach collection="list" item="item" separator=";">
+      update
+      <include refid="Table_Name"/>
+      <set>
+            <if test="item.name != null">
+              name=#{item.name},
+            </if>
+            <if test="item.sex != null">
+              sex=#{item.sex},
+            </if>
+            <if test="item.delFlag != null">
+              del_flag=#{item.delFlag},
+            </if>
+            <if test="item.createTime != null">
+              create_time=#{item.createTime},
+            </if>
+            <if test="item.updateTime != null">
+              update_time=#{item.updateTime},
+            </if>
+      </set>
+      where
+          xxx_id=#{item.xxxId}
+    </foreach>
+  </update>
+
+  <!--
+    <delete id="delete" parameterType="com.xxx.entity.po.XxxPo">
+        delete from
+        <include refid="Table_Name"/>
+        <where>
+                    xxx_id=#{item.xxxId}
+        </where>
+    </delete>
+
+    <delete id="deleteList" parameterType="java.util.List">
+        <foreach collection="list" item="item" separator=";">
+            delete from
+            <include refid="Table_Name"/>
+            where
+                    xxx_id=#{item.xxxId}
+        </foreach>
+    </delete>
+    -->
+
+  <!-- 查询单表符合条件总条数 -->
+  <select id="count" parameterType="com.xxx.entity.po.XxxPo" resultType="int">
+    select count(1) from
+    <include refid="Table_Name"/>
+    <where>
+      <include refid="Base_Where"/>
+    </where>
+  </select>
+
+  <!-- 查询符合条件的一条记录 -->
+  <select id="selectOne" parameterType="com.xxx.entity.po.XxxPo" resultMap="BaseResultMap">
+    <include refid="Base_Select"/>
+    limit 1
+  </select>
+
+  <!-- 查询符合条件的记录 -->
+  <select id="selectList" parameterType="com.xxx.entity.po.XxxPo" resultMap="BaseResultMap">
+    <include refid="Base_Select"/>
+  </select>
+
+  <!-- 查询符合条件的记录  锁定符合条件的行-->
+  <select id="selectForUpdate" parameterType="com.xxx.entity.po.XxxPo" resultMap="BaseResultMap">
+    <include refid="Base_Select"/>
+    for update
+  </select>
+
+</mapper>

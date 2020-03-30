@@ -36,7 +36,7 @@ public class GeneratorTest extends BaseTest {
     public void xmlTest(){
         MickeyConfig config = new MickeyConfig();
         config.setTableNames(
-                Sets.newHashSet("sc_qr_code")
+                Sets.newHashSet("xxx")
         );
         new CodeGenerator(dataSource,config)
                 .registerTask(XmlTask.class)

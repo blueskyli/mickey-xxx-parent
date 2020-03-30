@@ -7,7 +7,7 @@ server:
 
 spring:
   application:
-    name: mickey-example-web
+    name: mickey-xxx-web
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8

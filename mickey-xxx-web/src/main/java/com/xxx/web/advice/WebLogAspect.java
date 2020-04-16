@@ -52,7 +52,7 @@ public class WebLogAspect
     {
         String method = request.getMethod();
         log.info("【full requestURL】:" + request.getRequestURL().toString());
-        log.info("【ip】:" + IpUtils.getIpAddress(request));
+        log.info("【ip】:" + IpUtils.getIpAddr(request));
         log.info("【remoteAddr】:" + request.getRemoteAddr());
         log.info("【remoteHost】:" + request.getRemoteHost());
         log.info("【localAddr】:" + request.getLocalAddr());

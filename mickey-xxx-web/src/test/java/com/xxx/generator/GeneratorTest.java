@@ -25,8 +25,11 @@ public class GeneratorTest extends BaseTest {
      */
     @Test
     public void startTest(){
-        new CodeGenerator(dataSource)
-                .start();
+        MickeyConfig config = new MickeyConfig();
+        config.setBasePackage("com.mic")
+            .setType(MickeyConfig.TypeEnum.MAPPER);
+        new CodeGenerator(dataSource,config)
+            .start();
     }
 
     /**
@@ -35,12 +38,14 @@ public class GeneratorTest extends BaseTest {
     @Test
     public void xmlTest(){
         MickeyConfig config = new MickeyConfig();
-        config.setTableNames(
+        config.setBasePackage("com.mic")
+            .setTableNames(
                 Sets.newHashSet("xxx")
-        );
+            )
+            .setType(MickeyConfig.TypeEnum.MAPPER);;
         new CodeGenerator(dataSource,config)
-                .registerTask(XmlTask.class)
-                .start();
+            .registerTask(XmlTask.class)
+            .start();
     }
 
     /**
@@ -49,12 +54,13 @@ public class GeneratorTest extends BaseTest {
     @Test
     public void oneTalbeTest(){
         MickeyConfig config = new MickeyConfig();
-        config.setTableNames(
+        config.setBasePackage("com.mic")
+            .setTableNames(
                 Sets.newHashSet("xxx")
-        )
-                .setBasePackage("com.xxx");
+            )
+            .setType(MickeyConfig.TypeEnum.MAPPER);
         new CodeGenerator(dataSource,config)
-                .start();
+            .start();
     }
 
 }
